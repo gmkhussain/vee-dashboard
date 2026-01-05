@@ -1,5 +1,7 @@
 ## vee-dashboard
 
+Visit: https://vee-dashboard.vercel.app/
+
 Modern job search dashboard built with **React 18**, **Vite**, **TypeScript**, **Ant Design**, and **Redux Toolkit**.  
 The app provides a public layout with a header, footer, profile sidebar, job search form, and reusable job list cards.
 
