@@ -1,218 +1,230 @@
-# vee-dashboard
+## vee-dashboard
 
-Visit: 
-
-This document explains how to correctly structure **JobList** and **JobCard** components in React + TypeScript, avoid common typing errors, and keep a **single source of truth** for job types.
-
----
-
-## Problem Summary
-
-Common TypeScript errors you may encounter:
-
-* `Property 'company' is missing in type ...`
-* `Property 'id' is missing in type ...`
-* `Type 'X' is not assignable to type 'FeaturedJob'`
-
-These issues usually happen because:
-
-1. The same interface is declared in multiple files
-2. Component props expect fields that mock/API data does not provide
-3. Required vs optional properties are mismatched
+Modern job search dashboard built with **React 18**, **Vite**, **TypeScript**, **Ant Design**, and **Redux Toolkit**.  
+The app provides a public layout with a header, footer, profile sidebar, job search form, and reusable job list cards.
 
 ---
 
-## Solution Overview
+### Table of Contents
 
-### Key Rules
-
-* ✅ **Define `FeaturedJob` only once**
-* ✅ **Import the same type everywhere**
-* ✅ **Make fields optional only if data may not exist**
-
----
-
-## Folder Structure
-
-```
-src/components/JobList/
-├── index.tsx        # JobList component
-├── JobCard.tsx     # JobCard component
-├── types.ts        # Shared job types
-```
+- **Features**
+- **Tech Stack**
+- **Project Structure**
+- **Getting Started**
+- **Available Scripts**
+- **Environment Variables**
+- **Architecture Overview**
+  - Routing & Layout
+  - State Management (Redux Toolkit + redux-persist)
+  - API Client (Axios)
+  - UI & Theming
+- **Key Components**
 
 ---
 
-## Shared Job Type
+## Features
 
-📄 `src/components/JobList/types.ts`
-
-```ts
-export interface FeaturedJob {
-  id?: number; // optional for mock data, required for API data
-  title: string;
-  company: string;
-  location: string;
-  timeAgo: string;
-  applicants: number;
-  salary?: string;
-  isFeatured?: boolean;
-  logoUrl?: string;
-}
-```
+- **Public layout** with shared `Header` and `Footer` using Ant Design `Layout`.
+- **Home dashboard** showing:
+  - Profile sidebar
+  - Job search form with filters
+  - Reusable job lists (Featured, Recommended, Latest).
+- **Responsive design** with custom `Container` component and `useScreenSize` hook.
+- **Reusable job card & list components** with shared TypeScript types.
+- **Global state management** with Redux Toolkit and persisted store (auth, jobs).
+- **Configurable theme** via Ant Design `ConfigProvider`.
 
 ---
 
-## JobCard Component
+## Tech Stack
 
-📄 `JobCard.tsx`
+- **Frontend**: React 18, TypeScript, Vite
+- **UI Library**: Ant Design (`antd`), `@ant-design/icons`
+- **State Management**: Redux Toolkit, React Redux, redux-persist
+- **Routing**: React Router DOM v7 (`createBrowserRouter`, `RouterProvider`)
+- **HTTP Client**: Axios
+- **Animations**: Framer Motion, GSAP (available for animated components)
+- **Linting**: ESLint (with React hooks & React Refresh plugins)
 
-```tsx
-import React from "react";
-import { Button, Avatar, Image } from "antd";
-import {
-  EnvironmentOutlined,
-  ClockCircleOutlined,
-} from "@ant-design/icons";
-import styles from "./JobCard.module.css";
-import { iconSave } from "../../assets/images";
-import { FeaturedJob } from "./types";
+---
 
-interface Props {
-  job: FeaturedJob;
-  promoted?: boolean;
-}
+## Project Structure
 
-const JobCard: React.FC<Props> = ({ job, promoted = false }) => {
-  return (
-    <div className={styles.card}>
-      {promoted && <div className={styles.promoted}>Promoted</div>}
+High-level structure:
 
-      <div className={styles.header}>
-        <Avatar
-          size={40}
-          src={job.logoUrl}
-          className={`${styles.avatar} ${
-            job.logoUrl ? styles.withBg : ""
-          }`}
-        />
-
-        <div>
-          <h3 className={styles.title}>{job.title}</h3>
-          <p className={styles.company}>{job.company}</p>
-        </div>
-      </div>
-
-      <div className={styles.meta}>
-        <span>
-          <EnvironmentOutlined /> {job.location}
-        </span>
-
-        <span>
-          <ClockCircleOutlined /> {job.timeAgo} |{" "}
-          <b>{job.applicants} applicants</b>
-        </span>
-      </div>
-
-      <div className={styles.actions}>
-        <Button type="primary">Apply Now</Button>
-        <Button icon={<Image src={iconSave} preview={false} />} />
-      </div>
-    </div>
-  );
-};
-
-export default JobCard;
+```text
+.
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tsconfig*.json
+├── public/
+│   └── static assets (favicons, logos)
+└── src/
+    ├── main.tsx           # App entry, React root, providers
+    ├── App.tsx            # Top-level RouterProvider
+    ├── assets/
+    │   ├── images/        # Icons, logos, avatars, exported via index.ts
+    │   └── styles/
+    │       ├── antStyle.ts
+    │       └── themeConfig.ts  # Ant Design theme tokens
+    ├── components/
+    │   ├── AnimateWrapper/
+    │   ├── JobList/       # JobCard, list, and shared types
+    │   ├── JobSearchForm/
+    │   ├── ProfileCard/
+    │   ├── Typo/
+    │   └── UI/Container.tsx
+    ├── hooks/             # Custom hooks (dispatch, selector, screen size, etc.)
+    ├── routes/            # Router config (public routes)
+    ├── services/          # Axios instances and auth helpers
+    ├── store/             # Redux store, slices, root reducer
+    ├── types/             # Shared TypeScript types
+    └── views/
+        ├── layout/public/ # PublicLayout, Header, Footer
+        └── pages/Home/    # Home page
 ```
 
 ---
 
-## JobList Component
+## Getting Started
 
-📄 `index.tsx`
+### Prerequisites
 
-```tsx
-import React from "react";
-import { Button } from "antd";
-import JobCard from "./JobCard";
-import styles from "./JobList.module.css";
-import { FeaturedJob } from "./types";
+- **Node.js** (LTS recommended, e.g. 18+)
+- **npm** (bundled with Node) or another package manager
 
-interface JobListProps {
-  jobs: FeaturedJob[];
-  title: string;
-  promoted?: boolean;
-}
+### Installation
 
-const JobList: React.FC<JobListProps> = ({
-  jobs,
-  title,
-  promoted = false,
-}) => {
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <h2>{title}</h2>
-        <Button type="link">See {title}</Button>
-      </div>
-
-      <div className={styles.grid}>
-        {jobs.map((job) => (
-          <JobCard
-            key={job.id ?? `${job.title}-${job.company}`}
-            job={job}
-            promoted={promoted}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default JobList;
+```bash
+npm install
 ```
 
----
+### Run in development mode
 
-## Example Usage (Home Page)
-
-```tsx
-const featuredJobsData = [
-  {
-    id: 1,
-    title: "UI/UX Designer",
-    company: "Google",
-    location: "Remote",
-    timeAgo: "2 days ago",
-    applicants: 23,
-    logoUrl: "/logos/google.png",
-  },
-];
-
-<JobList
-  jobs={featuredJobsData}
-  title="Featured Jobs"
-  promoted
-/>
+```bash
+npm run dev
 ```
 
+By default the app runs on `http://localhost:3000` (see the `dev` script in `package.json`).
+
+### Build for production
+
+```bash
+npm run build
+```
+
+This runs TypeScript build (`tsc -b`) and then `vite build`, outputting static assets to `dist/`.
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+Serves the built files locally so you can verify the production bundle.
+
 ---
 
-## Best Practices
+## Available Scripts
 
-* 🔹 Keep **types in one file only**
-* 🔹 Prefer `id` for React keys
-* 🔹 Use optional fields for mock data
-* 🔹 Avoid `any` completely
+From `package.json`:
 
----
-
-## Result
-
-* ✅ No TypeScript errors
-* ✅ `tsc -b` passes
-* ✅ `vite build` passes
-* ✅ Clean, scalable architecture
+- **`npm run dev`**: Start Vite dev server on port 3000.
+- **`npm run build`**: Type-check with `tsc -b` and build for production with Vite.
+- **`npm run lint`**: Run ESLint on the project.
+- **`npm run preview`**: Preview the production build locally.
 
 ---
 
+## Environment Variables
+
+The API client uses a base URL from Vite environment variables:
+
+- **`VITE_API_BASE_URL`**: Base URL for backend API requests.
+
+Create a `.env` file in the project root (not committed to version control) and define:
+
+```bash
+VITE_API_BASE_URL=https://your-api.example.com
+```
+
+Vite exposes variables prefixed with `VITE_` to the client via `import.meta.env`.
+
+---
+
+## Architecture Overview
+
+### Routing & Layout
+
+- **Router** is configured in `src/routes/index.ts` using `createBrowserRouter`.
+- **Public routes** are defined in `src/routes/public`, wrapped by `PublicLayout` from `src/views/layout/public`.
+- `PublicLayout` composes:
+  - `Header` (top navigation, search bar, profile avatar, mobile drawer menu)
+  - `Content` (renders child routes via `<Outlet />`)
+  - `Footer` (links and copyright text, responsive via `useScreenSize`).
+
+### State Management (Redux Toolkit + redux-persist)
+
+- Store is created in `src/store/index.ts` with `configureStore` and a `persistedReducer`.
+- **Slices**:
+  - `userSlice` (`src/store/features/userSlice.ts`): stores auth token and basic user info; exposes `setToken`, `removeToken`, `setUser`, and `getUser` selector.
+  - `jobsSlice` (`src/store/features/jobsSlice.ts`): manages an array of jobs with `setJobs`, `addJob`, `clearJobs`, and `selectJobs`.
+- **Persistence**:
+  - Configured via `redux-persist` with `storage` (localStorage) and key `"root"`.
+  - `PersistGate` in `main.tsx` delays rendering until persisted state is rehydrated.
+
+### API Client (Axios)
+
+- Main Axios instance in `src/services/api.ts`:
+  - **`baseURL`**: `import.meta.env.VITE_API_BASE_URL`.
+  - Adds `Accept: application/json` and `Content-Type: application/json`.
+  - Enables `withCredentials` and sets a `timeout` of 10s.
+- **Request interceptor**:
+  - Reads auth `token` from Redux store (`state.user.token`) and attaches it as `Authorization: Bearer <token>` if present.
+- **Response interceptor**:
+  - On `401` with message `"Unauthenticated."`, dispatches `removeToken()` to clear auth state.
+  - Returns the raw `response` object for downstream consumers.
+
+### UI & Theming
+
+- Ant Design theming configured in `src/assets/styles/themeConfig.ts`:
+  - Sets `colorPrimary` and customizes `Button` tokens (border radius, height, padding).
+- `main.tsx` wraps the app with `ConfigProvider` using `themeConfig`.
+- Global and component-level styles:
+  - `src/index.css`, `src/App.css` for global layout and utility classes.
+  - CSS modules (e.g. `Header.module.css`, `JobCard.module.css`, `JobList.module.css`) for scoped component styles.
+- Custom layout helpers:
+  - `UI/Container.tsx` provides a constrained, responsive container with padding utilities.
+
+---
+
+## Key Components
+
+- **Home Page** (`src/views/pages/Home/index.tsx`)
+  - Assembles the main dashboard layout:
+    - `ProfileSidebar` in a left column.
+    - `JobSearchForm` and multiple `JobList` instances in the right column.
+  - Uses Ant Design `Row` and `Col` for responsive grid layout.
+
+- **Job List & Card** (`src/components/JobList`)
+  - **Type**: `FeaturedJob` in `types.ts` defines the shape of job data:
+    - `title`, `company`, `location`, `timeAgo`, `applicants`, optional `salary`, `isFeatured`, `logoUrl`.
+  - **`JobCard`**:
+    - Displays job logo, title, company, location, and time-ago + applicants.
+    - Shows an optional `"Promoted"` badge and action buttons (`Apply Now`, save icon).
+  - **`JobList`**:
+    - Renders a title and “See {title}” link button.
+    - Maps over `jobs: FeaturedJob[]` and renders `JobCard` for each entry.
+
+- **Layout Components**
+  - **`Header`**:
+    - Logo, navigation menu, search input with icon, “Resume Builder” CTA, user avatar.
+    - Mobile-friendly drawer navigation via `Drawer` and `MenuOutlined` icon.
+  - **`Footer`**:
+    - Simple two-column layout with links and copyright.
+    - Uses `useScreenSize` to adapt alignment on mobile.
+
+---
+
+If you need more detailed documentation for any specific module (e.g. hooks, animation components, or a particular slice), you can request a focused section and it can be added here.
