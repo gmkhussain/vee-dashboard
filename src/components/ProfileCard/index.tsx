@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Avatar, Divider } from "antd";
+import { Card, Avatar } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import styles from "./ProfileSidebar.module.css";
 

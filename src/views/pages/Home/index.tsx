@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Row, Col } from "antd";
 import ProfileSidebar from "../../../components/ProfileCard";
 import JobSearchForm from "../../../components/JobSearchForm";

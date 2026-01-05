@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Image, Button, Layout, Menu, Drawer, Input, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 import Container from "../../../components/UI/Container";
 import { logo, iconSearch } from "../../../assets/images";
 import styles from "./Header.module.css";

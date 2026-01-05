@@ -1,5 +1,5 @@
 import React from "react"
-import { Row, Col, Flex, Image, Space } from "antd"
+import { Row, Col, Space } from "antd"
 import Container from "../../../components/UI/Container";
 import { Link } from "react-router-dom";
 import useScreenSize from "../../../hooks/useScreenSize";

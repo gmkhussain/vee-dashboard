@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const useScreenSize = (breakpoint = 1100) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
-  const [isIsDesktop, setIsDesktop] = useState(!isMobile);
+  const isIsDesktop = !isMobile;
 
   useEffect(() => {
     const checkScreenSize = () => {

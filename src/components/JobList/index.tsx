@@ -1,35 +1,37 @@
-import React from 'react';
-import JobCard from './JobCard';
-import { Button, Row, Col } from 'antd';
-import styles from './JobList.module.css';
+import React from "react";
+import { Button } from "antd";
+import JobCard from "./JobCard";
+import styles from "./JobList.module.css";
+import { FeaturedJob } from "./types";
 
-interface Job {
+interface JobListProps {
+  jobs: FeaturedJob[];
   title: string;
-  location: string;
-  timeAgo: string;
-  applicants: number;
+  promoted?: boolean;
 }
 
-interface FeaturedJobsProps {
-  jobs: Job[];
-  title: string;
-  promoted: Boolean
-}
-
-const JobList: React.FC<FeaturedJobsProps> = ({ jobs, title, promoted }) => {
+const JobList: React.FC<JobListProps> = ({
+  jobs,
+  title,
+  promoted = false,
+}) => {
   return (
     <div className={styles.wrapper}>
-     
       <div className={styles.header}>
-        <h2>{title}</h2>
+        <h2 className={styles.title}>{title}</h2>
+
         <Button type="link" className={styles.seeMoreButton}>
           See {title}
         </Button>
       </div>
 
-  <div className={styles.grid}>
-        {jobs.map((job, index) => (
-          <JobCard key={index} job={job} promoted={promoted} />
+      <div className={styles.grid}>
+        {jobs.map((job) => (
+          <JobCard
+            key={job.title ?? `${job.title}-${job.location}`}
+            job={job}
+            promoted={promoted}
+          />
         ))}
       </div>
     </div>

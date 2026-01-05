@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { DebounceDelayInMS } from "../shared/constants";
 
-const useDebounce = <T>(value: T, delay: number = DebounceDelayInMS): T => {
+const useDebounce = <T>(value: T, delay: number = 2000): T => {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {

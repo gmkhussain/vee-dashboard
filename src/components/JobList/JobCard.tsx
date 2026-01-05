@@ -3,18 +3,17 @@ import { Button, Avatar, Image } from "antd";
 import {
   EnvironmentOutlined,
   ClockCircleOutlined,
-  BookOutlined,
 } from "@ant-design/icons";
 import styles from "./JobCard.module.css";
-import { FeaturedJob } from "./types";
 import { iconSave } from "../../assets/images";
+import { FeaturedJob } from "./types";
 
 interface Props {
   job: FeaturedJob;
-  promoted: Boolean
+  promoted?: boolean;
 }
 
-const FeaturedJobCard: React.FC<Props> = ({ job, promoted }) => {
+const JobCard: React.FC<Props> = ({ job, promoted = false }) => {
   return (
     <div className={styles.card}>
       {promoted && <div className={styles.promoted}>Promoted</div>}
@@ -22,8 +21,10 @@ const FeaturedJobCard: React.FC<Props> = ({ job, promoted }) => {
       <div className={styles.header}>
         <Avatar
           size={40}
-          className={`${styles.avatar} ${job.logoUrl ? styles.withBg : ""}`}
-          src={ job.logoUrl && <img src={job.logoUrl} className={styles.avatarImg} />}
+          className={`${styles.avatar} ${
+            job.logoUrl ? styles.withBg : ""
+          }`}
+          src={job.logoUrl}
         />
 
         <div>
@@ -36,6 +37,7 @@ const FeaturedJobCard: React.FC<Props> = ({ job, promoted }) => {
         <span>
           <EnvironmentOutlined /> {job.location}
         </span>
+
         <span>
           <ClockCircleOutlined /> {job.timeAgo} |{" "}
           <b>{job.applicants} applicants</b>
@@ -46,15 +48,14 @@ const FeaturedJobCard: React.FC<Props> = ({ job, promoted }) => {
         <Button type="primary" className={styles.applyBtn}>
           Apply Now
         </Button>
-        
+
         <Button
           icon={<Image src={iconSave} preview={false} />}
           className={styles.saveBtn}
-        />        
-        
+        />
       </div>
     </div>
   );
 };
 
-export default FeaturedJobCard;
+export default JobCard;
