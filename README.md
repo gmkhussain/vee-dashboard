@@ -1,6 +1,6 @@
 # vee-dashboard
 
-Visit: 
+Visit: https://vee-dashboard.vercel.app/
 
 This document explains how to correctly structure **JobList** and **JobCard** components in React + TypeScript, avoid common typing errors, and keep a **single source of truth** for job types.
 
