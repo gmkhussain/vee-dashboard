@@ -1,0 +1,15 @@
+.preTitle {
+    font-size: 24px;
+}
+
+.title {
+    font-size: 46px;
+    font-weight: bold;
+    margin-bottom: 14px;
+    margin-top: 10px;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 300;
+}

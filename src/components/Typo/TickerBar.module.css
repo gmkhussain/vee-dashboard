@@ -1,0 +1,39 @@
+.tickerContainer {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    padding: 10px 0;
+  }
+  
+  .tickerContent {
+    display: flex;
+    gap: 50px;
+    width: max-content;
+    animation: tickerScroll linear infinite;
+  }
+  
+  .tickerItem {
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 400;
+    padding: 16px 30px;
+    border-radius: 8px;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    transition: all 0.25s;
+  }
+
+  
+  .tickerItem:hover {
+    transform: scale(1.05);
+    background-color: #ffffff11;
+}
+  
+ @keyframes tickerScroll {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }

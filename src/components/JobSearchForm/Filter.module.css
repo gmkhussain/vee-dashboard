@@ -1,0 +1,24 @@
+
+.similar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.similar :global(.ant-tag) {
+    background: transparent;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #475569;
+    cursor: pointer;
+}
+
+.similar button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

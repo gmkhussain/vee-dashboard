@@ -1,0 +1,169 @@
+:root {
+  --color-primary: #0154AA;
+  --color-secondary: #F6F9FF;
+  
+  --color-black: #333333;
+  --color-gray: #585D6E;
+  --color-grayLight: #737A91;
+  --color-grayLighter: #E1E1E1;
+  --color-white: #ffffff;
+}
+
+
+body, p, div, span {
+  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+}
+
+html, body {
+  height: 100%; 
+  overflow: auto;
+  overflow-x: hidden;
+  background-color: var(--color-grayLighter);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-black);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-gray {
+  background-color: var(--color-gray);
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.rounded-50 {
+  border-radius: 50px;
+}
+
+.text-black { color: var(--color-black) }
+.text-white { color: var(--color-white) }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.text-12 { font-size: 12px; }
+.text-14 { font-size: 14px; }
+
+.border-top-1 { border-top: 1px solid #777777; }
+
+.flipX {
+  transform: scaleX(-1);
+}
+
+.flipY {
+  transform: scaleY(-1);
+}
+
+.top-0 { top: 0 }
+.left-0 { left: 0 }
+.right-0 { right: 0 }
+.bottom-0 { bottom: 0 }
+
+.w-100 { width: 100% }
+
+.ant-btn {
+  box-shadow: none;
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6 {
+  line-height: normal;
+}
+.h1 { font-size: 36px; }
+.h2 { font-size: 30px; }
+.h3 { font-size: 24px; }
+.h4 { font-size: 20px; }
+.h5 { font-size: 18px; }
+.h6 { font-size: 16px; }
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+.mt-40 { margin-top: 40px; }
+.mt-50 { margin-top: 50px; }
+.mt-60 { margin-top: 60px; }
+.mt-70 { margin-top: 70px; }
+.mt-80 { margin-top: 80px; }
+.mt-90 { margin-top: 90px; }
+.mt-100 { margin-top: 100px; }
+
+.my-50 { margin-block: 50px; }
+
+.mb-5 { margin-bottom: 5px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+.mb-40 { margin-bottom: 40px; }
+.mb-50 { margin-bottom: 50px; }
+.mb-60 { margin-bottom: 60px; }
+.mb-70 { margin-bottom: 70px; }
+.mb-100 { margin-bottom: 100px; }
+
+.p-0 { padding: 0px;}
+.pl-10 { padding-left: 10px;}
+.pr-10 { padding-right: 10px;}
+.pl-15 { padding-left: 15px;}
+.pr-20 { padding-right: 20px;}
+
+
+.pt-10 { padding-top: 10px; } 
+.pt-20 { padding-top: 20px; } 
+.pt-20 { padding-top: 30px; } 
+.pt-50 { padding-top: 50px; } 
+.pt-100 { padding-top: 100px; } 
+
+.pb-50 { padding-bottom: 50px; }
+.pb-100 { padding-bottom: 100px; }
+
+.px-5 { padding-inline: 5px; }
+.px-10 { padding-inline: 10px; }
+.px-20 { padding-inline: 20px; }
+.px-30 { padding-inline: 30px; }
+
+.py-10 { padding-block: 10px; }
+.py-20 { padding-block: 20px; }
+.py-30 { padding-block: 30px; }
+.py-40 { padding-block: 40px; }
+.py-50 { padding-block: 50px; }
+.py-100 { padding-block: 100px; }
+
+.relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.outlined-btn:active,
+.outlined-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-white) !important;
+}
+
+#root {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+
+  .ant-layout {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+}
